@@ -7,16 +7,19 @@ var ee2 = new Emitter();
 
 var myDemuxed = new EeDemux(ee1, ee2);
 
-myDemuxed.on('foo', function() {
-    console.log('foo');
+ee1.on('bax', function() {
+    console.log('ee1 bax');
 });
 
-myDemuxed.on('bar', function() {
-    console.log('bar');
+ee2.on('bax', function() {
+    console.log('ee2 bax');
+});
+
+myDemuxed.on('foo', function() {
+    console.log('demux foo');
 });
 
 ee1.emit('foo');
-ee1.emit('bar');
 ee2.emit('foo');
-ee2.emit('bar');
-ee2.emit('bar');
+
+myDemuxed.emit('bax');
