@@ -7,9 +7,11 @@ var ee2 = new Emitter();
 
 var myDemuxed = new EeDemux(ee1, ee2);
 
-ee1.on('bax', function() {
+var ee1BaxListener = function() {
     console.log('ee1 bax');
-});
+};
+
+ee1.on('bax', ee1BaxListener);
 
 ee2.on('bax', function() {
     console.log('ee2 bax');
@@ -21,5 +23,9 @@ myDemuxed.on('foo', function() {
 
 ee1.emit('foo');
 ee2.emit('foo');
+
+myDemuxed.emit('bax');
+
+ee1.removeListener('bax', ee1BaxListener);
 
 myDemuxed.emit('bax');

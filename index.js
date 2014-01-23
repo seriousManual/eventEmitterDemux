@@ -4,31 +4,46 @@ var Emitter = require('events').EventEmitter;
 function EeDemux() {
     Emitter.call(this);
 
-    var that = this;
     this._emitters = [];
 
     for(var i = 0; i < arguments.length; i++) {
         this._emitters.push(arguments[i]);
     }
 
+    var that = this;
+
     this.on('newListener', function(eventName, handler) {
+        if(handler._preventListen) return;
+        handler._preventListen = true;
+
         this._emitters.forEach(function(emitter) {
             emitter.on(eventName, handler);
         });
     });
 
+    this._emitters.forEach(function(emitter) {
+        emitter.on('newListener', function(eventName, handler) {
+            if(handler._preventListen) return;
+            handler._preventListen = true;
+
+            that.on(eventName, handler);
+        });
+    });
+
     this.on('removeListener', function(eventName, handler) {
-        this._emitters.foreach(function(emitter) {
+        if(handler._preventListen) return;
+        handler._preventListen = true;
+
+        this._emitters.forEach(function(emitter) {
             emitter.removeListener(eventName, handler);
         });
     });
 
     this._emitters.forEach(function(emitter) {
-        emitter.on('newListener', function(eventName, handler) {
-            that.on(eventName, handler);
-        });
-
         emitter.on('removeListener', function(eventName, handler) {
+            if(handler._preventListen) return;
+            handler._preventListen = true;
+
             that.removeListener(eventName, handler);
         });
     });
