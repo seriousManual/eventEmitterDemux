@@ -29,24 +29,6 @@ function EeDemux() {
             that.on(eventName, handler);
         });
     });
-
-    this.on('removeListener', function(eventName, handler) {
-        if(handler._preventListen) return;
-        handler._preventListen = true;
-
-        this._emitters.forEach(function(emitter) {
-            emitter.removeListener(eventName, handler);
-        });
-    });
-
-    this._emitters.forEach(function(emitter) {
-        emitter.on('removeListener', function(eventName, handler) {
-            if(handler._preventListen) return;
-            handler._preventListen = true;
-
-            that.removeListener(eventName, handler);
-        });
-    });
 }
 
 util.inherits(EeDemux, Emitter);
