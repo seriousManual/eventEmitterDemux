@@ -1,0 +1,23 @@
+{
+  "name": "emitterMuxDemux",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zaphod1984/eventEmitterDemux.git"
+  },
+  "keywords": [],
+  "author": "Manuel Ernst <zaphod84@gmx.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zaphod1984/eventEmitterDemux/issues"
+  },
+  "devDependencies": {
+      "mocha": "~1.17.1",
+      "chai": "~1.8.1"
+  }
+}
