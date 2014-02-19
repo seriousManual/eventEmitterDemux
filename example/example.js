@@ -1,6 +1,6 @@
 var Emitter = require('events').EventEmitter;
 
-var EeDemux = require('./');
+var EeDemux = require('../');
 
 var ee1 = new Emitter();
 var ee2 = new Emitter();
