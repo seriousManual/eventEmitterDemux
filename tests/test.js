@@ -12,7 +12,7 @@ function expector(number, handler) {
         if (i === number) {
             return handler();
         } else if (i > number) {
-            throw new Error('too much invocations');
+            throw new Error('too many invocations');
         }
     };
 }
